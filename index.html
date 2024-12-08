@@ -1,45 +1,100 @@
 <html>
   <head>
     <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsmediatags/3.9.5/jsmediatags.min.js"></script>
+    <script src="https://unpkg.com/aframe-event-set-component@3.0.3/dist/aframe-event-set-component.min.js"></script>
     <link rel="stylesheet" href="style/style.css" />
   </head>
   <body>
     <a-scene>
+      <a-camera>
+        <a-cursor></a-cursor>
+      </a-camera>
       <a-assets>
         <img id="art" />
       </a-assets>
       <a-entity
         gltf-model="/models/main.glb"
-        
+        id="main"
         position="0 1 -3"
       >
       </a-entity>
 
       <!-- //image  -->
       <a-image
+        
         src="#art"
         width="1.17"
         height="1.07"
-        position="0 1.57 -2"
+        position="0 1.57 -2.7"
       ></a-image>
       
       <a-entity id="text"  
-      position=" 0.76 0.90 -2"
-      
-      material="color: black;  
+       text="text:adsdas "
+        position=" 0.76 0.90 -2"
+        material="color: black;  
       >
       </a-entity>
 
-     
-      <a-entity
-        gltf-model="/models/main.glb"
+      <!-- buttons  -->
       
-        position="0 1 -3"
-      >   
-      </a-entity>
 
-      <!-- <a-sky color="#00000"></a-sky> -->
+       
+      
+      
+        
+        <!-- <a-entity
+          gltf-model="/models/next.glb"
+          position="-0.5 0.5 -3"
+          rotation="0 90 0"
+        ></a-entity> -->
+        <!-- Text -->
+      
+      
+        <!-- Button 2: Play/Stop -->
+        <a-entity
+          gltf-model="/models/next.glb"
+          position="-0.5 0.1 -3"
+          rotation="90 0 0"
+          onclick="prevTrack()  "
+        ></a-entity>
+        <!-- Play/Stop -->
+        <a-entity
+          gltf-model="/models/play_stop.glb"
+          position="0 0.1 -3"
+          rotation="90 0 0"
+          onclick="Play()"
+          
+        ></a-entity>
+    
+        
+        <a-entity
+          gltf-model="/models/preuvis.glb"
+          position="0.5 0.1 -3"
+          rotation="90 0 0"
+          previous-on-click
+          onclick="nextTrack()"
+        ></a-entity>
+    
+    
+ 
+      <a-sky color="#87CEEB"></a-sky>  
+      
+      <a-text
+        value="Buttons: Left - New Track | Middle - Play/Pause | Right - Next"
+        position="2 2 -3"
+        color="white"
+        scale="3 2 2"
+      ></a-text>
+      <a-text
+        id="text"
+       
+        position="2 0 -3"
+        color="white"
+        scale="2 2 2"
+    ></a-text>
     </a-scene>
     <script src="/script/script.js"></script>
+    <!-- <script src="/script/fetcData.js"></script> -->
   </body>
 </html>

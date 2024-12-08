@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MP3 Player</title>
+    <script src="https://cdn.jsdelivr.net/npm/jsmediatags/dist/jsmediatags.min.js"></script>
+    <style>
+      button {
+        padding: 10px;
+        margin: 10px;
+        font-size: 16px;
+      }
+
+      #fileInput {
+        display: none; /* Hide the file input by default */
+      }
+    </style>
+  </head>
+  <body>
+    <h1>MP3 Player</h1>
+
+    <!-- Button to open the hidden file input -->
+    <button onclick="openFileInput()">Open File</button>
+
+    <!-- Hidden file input -->
+    <input
+      type="file"
+      id="fileInput"
+      accept="audio/mp3"
+      multiple
+      style="display: none"
+    />
+
+    <!-- Image for album art -->
+    <img id="art" alt="Album Art" style="width: 200px; height: 200px" />
+
+    <br />
+
+    <button onclick="playPause()">Play/Pause</button>
+    <button onclick="prevTrack()">Previous</button>
+    <button onclick="nextTrack()">Next</button>
+
+    <script>
+      window.onload = function () {
+        const box = document.getElementById("main");
+        let audio = new Audio(); // Create a new audio element
+        let currentTrackIndex = -1; // No track loaded initially
+        let tracks = []; // Array to store tracks
+
+        // Function to open the file input when the "Open File" button is clicked
+        function openFileInput() {
+          document.getElementById("fileInput").click();
+        }
+
+        // Function to handle file input
+        document
+          .getElementById("fileInput")
+          .addEventListener("change", (event) => {
+            let files = event.target.files;
+            tracks = Array.from(files); // Store the files in an array
+            if (tracks.length > 0) {
+              currentTrackIndex = 0;
+              loadTrack(currentTrackIndex);
+            }
+          });
+
+        // Function to handle play/pause
+        function playPause() {
+          if (audio.paused) {
+            if (currentTrackIndex === -1) {
+              alert("Please select an MP3 file.");
+            } else {
+              audio.play();
+            }
+          } else {
+            audio.pause();
+          }
+        }
+
+        // Function to load the track into the audio player
+        function loadTrack(index) {
+          if (index >= 0 && index < tracks.length) {
+            audio.src = URL.createObjectURL(tracks[index]);
+            audio.load();
+            audio.play();
+            // Optionally, call the metadata function to show album art
+            loadMetadata(tracks[index]);
+          }
+        }
+
+        // Function to go to the previous track
+        function prevTrack() {
+          if (tracks.length > 0 && currentTrackIndex > 0) {
+            currentTrackIndex--;
+            loadTrack(currentTrackIndex);
+          } else {
+            alert("No previous track.");
+          }
+        }
+
+        // Function to go to the next track
+        function nextTrack() {
+          if (tracks.length > 0 && currentTrackIndex < tracks.length - 1) {
+            currentTrackIndex++;
+            loadTrack(currentTrackIndex);
+          } else {
+            alert("No next track.");
+          }
+        }
+
+        // Function to read metadata using jsmediatags
+        function loadMetadata(file) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            const arrayBuffer = e.target.result;
+            const blob = new Blob([arrayBuffer]);
+
+            jsmediatags.read(blob, {
+              onSuccess: function (tag) {
+                const { title, artist, album, year, picture } = tag.tags;
+
+                if (picture) {
+                  // Convert picture data to Base64
+                  const data = new Uint8Array(picture.data);
+                  const base64String = btoa(
+                    data.reduce(
+                      (dataString, byte) =>
+                        dataString + String.fromCharCode(byte),
+                      ""
+                    )
+                  );
+                  const imageDataUrl = `data:${picture.format};base64,${base64String}`;
+
+                  // Set the image src
+                  const image = document.querySelector("#art");
+                  if (image) {
+                    image.src = imageDataUrl;
+                  } else {
+                    console.error("Image element not found");
+                  }
+                } else {
+                  console.log("No picture available in metadata");
+                }
+              },
+              onError: function (error) {
+                console.error("Error reading metadata:", error);
+              },
+            });
+          };
+          reader.readAsArrayBuffer(file);
+        }
+      };
+    </script>
+  </body>
+</html>
