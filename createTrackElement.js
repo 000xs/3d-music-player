@@ -36,17 +36,53 @@ function createCD(scene, material, x, y, z, trackname) {
 
       const textMesh = new THREE.Mesh(textGeometry, material);
       textMesh.rotateY(Math.PI / 2);
-      //  0, 0.5, -4 
+      //  0, 0.5, -4
 
-      //   0, 0.65, -4 
+      //   0, 0.65, -4
 
-      //   0, 0.8, -4 
+      //   0, 0.8, -4
 
-      textMesh.position.set(x+0.25, y, z + 0.5); // Center the text
+      textMesh.position.set(x + 0.25, y, z + 0.5); // Center the text
+      textMesh.name = "text" + cd_count;
       scene.add(textMesh);
-     
     });
   });
 }
+function chanagePositionPlay(name, scene) {
+  const object = scene.getObjectByName("cd" + name);
+  const text = scene.getObjectByName("text" + name);
+  if (object && text) {
+    object.position.x = 0.25;
 
-export { createCD };
+    text.position.x = 0.5;
+  } else {
+    console.warn(`Object with name "${name}" not found.`);
+  }
+}
+function controlerPosition(scene,percentage) {
+  //  now 0.65z
+  // to -0.65z
+  const start = 0.65;
+  const end = -0.65;
+  
+
+  const totalRange = start - end;
+
+  // Calculate the specified percentage of the total range
+  const result = totalRange * (percentage / 100);
+
+  // Calculate new position based on moving down from start
+  const z = start - result;
+  const controler = scene.getObjectByName("controler");
+  controler.position.z = z;
+  
+}
+
+
+function controlerSetPosition(scene,x,y){
+  const controler = scene.getObjectByName("controler");
+  controler.position.x =x;
+  controler.position.y =y;
+}
+
+export { createCD, chanagePositionPlay ,controlerPosition,controlerSetPosition};

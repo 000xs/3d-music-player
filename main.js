@@ -57,6 +57,7 @@ loader.load('/models/controler.glb', (gltf) => {
   scene.add(gltf.scene);
   gltf.scene.traverse((child) => {
     if (child.isMesh) {
+      child.name= "controler";
       child.material = material;
       child.rotateY(Math.PI / 2 * 3);
       child.position.set(0.2, 0.45, 0.65)
@@ -150,8 +151,7 @@ scene.add(directionalLight2);
 
 
 
-const directionalLightHelper = new THREE.DirectionalLightHelper(directionalLight, 5);
-scene.add(directionalLightHelper);
+ 
 
 // Raycaster and mouse vector
 const raycaster = new THREE.Raycaster();
@@ -177,26 +177,31 @@ function onClick(event) {
 
     if (objectName == "play") {
       //play fuc
-      Play()
-      
+      Play(scene)
+        
     }
     if (objectName == "next") {
       //play fuc
-      Next()
+      Next(scene)
     }
     if (objectName == "prev") {
       //play fuc
-      Prev()
+      Prev(scene)
     }
     if (objectName == "playlist") {
       // const tracks = [];
       const data = addTrack(scene, material);
       console.log(data)
     }
+    if (objectName == "controler") {
+      
+      
+    }
 
 
   }
 }
+
 
 
 
@@ -207,7 +212,7 @@ function animate() {
   // Update controls and render the scene
   controls.update();
   renderer.render(scene, camera);
-  renderer.setClearColor(0xf2f2, 0);
+  renderer.setClearColor(new THREE.Color(0x87CEEB), 1);
 }
 
 // Start the animation loop
