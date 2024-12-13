@@ -12,19 +12,19 @@ let tracks = [];
 const fileInput = document.createElement("input");
 fileInput.type = "file";
 fileInput.accept = "audio/mp3";
-fileInput.style.display = "none"; // Hide the input initially
+fileInput.style.display = "none";  
 document.body.appendChild(fileInput);
 
 const addTrack = (scene, material) => {
   fileInput.addEventListener("change", function (event) {
     let files = event.target.files;
 
-    // Check if there is at least one file
+ 
     if (files.length > 0) {
-      const track = files[0]; // Get only the first file
+      const track = files[0];  
       const cd = {
         name: `cd${cd_count}`,
-        track: [track], // Wrap it in an array
+        track: [track],  
       };
 
       tracks.push(cd);
@@ -35,7 +35,7 @@ const addTrack = (scene, material) => {
       cd_count++;
     }
 
-    // Clear the input value to allow selecting the same file again
+  
     fileInput.value = "";
   });
   if (tracks.length < 8) {
@@ -49,7 +49,7 @@ const addTrack = (scene, material) => {
 
 const Play = () => {
   if (audio.paused) {
-    // If audio is paused or hasn't started yet, play the track
+ 
     if (currentTrackIndex === -1) {
       currentTrackIndex = 0;
       audio.src = URL.createObjectURL(tracks[currentTrackIndex].track[0]);
@@ -71,7 +71,7 @@ const Play = () => {
         alert("Failed to extract metadata.");
       });
   } else {
-    // If audio is playing, pause it
+ 
     audio.pause();
   }
 };
@@ -94,14 +94,14 @@ const Prev = () => {
     console.log(data.data);
   }
 };
-// Function to extract metadata from an MP3 file
+ 
 function loadMetadata(file) {
     return new Promise((resolve, reject) => {
         new jsmediatags.Reader(file)
-            .setTagsToRead(["title", "artist", "album", "picture"]) // Specify tags to extract
+            .setTagsToRead(["title", "artist", "album", "picture"])  
             .read({
                 onSuccess: ({ tags }) => {
-                    // Convert cover art to a base64 string if available
+                    
                     const coverArt = tags.picture ? {
                         format: tags.picture.format,
                         data: `data:${tags.picture.format};base64,${arrayBufferToBase64(tags.picture.data)}`
@@ -120,7 +120,7 @@ function loadMetadata(file) {
     });
 }
 
-// Helper function to convert an ArrayBuffer to a Base64 string
+ 
 function arrayBufferToBase64(buffer) {
     return window.btoa(String.fromCharCode(...new Uint8Array(buffer)));
 }
