@@ -1,0 +1,19 @@
+{
+  "name": "3d-music-player",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^4.4.5"
+  },
+  "dependencies": {
+ 
+    "music-metadata-browser": "^2.5.11",
+    "three": "^0.171.0"
+  }
+}
