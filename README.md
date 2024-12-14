@@ -7,7 +7,6 @@ This is 3D model Of Music players
 
 ![alt text](public/in.jpg)
 
- 
 1. Click "Prev button" to go back to the previous track.
 
 2. Click "Play/Pause" to play or pause the current track.
