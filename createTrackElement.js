@@ -68,10 +68,10 @@ function controlerPosition(scene,percentage) {
 
   const totalRange = start - end;
 
-  // Calculate the specified percentage of the total range
+ 
   const result = totalRange * (percentage / 100);
 
-  // Calculate new position based on moving down from start
+ 
   const z = start - result;
   const controler = scene.getObjectByName("controler");
   controler.position.z = z;

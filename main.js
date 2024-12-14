@@ -1,21 +1,12 @@
 
-
-
-// // Get the modal
 const popup = document.getElementById("popup");
-
-// // Get the button that opens the modal
-// const openPopup = document.getElementById("openPopup");
-
-// // Get the <span> element that closes the modal
+ 
 const closePopup = document.getElementById("closePopup");
-
-// // When the user clicks on the button, open the modal
+ 
 
 popup.style.display = "block";
 
-
-// When the user clicks on <span> (x), close the modal
+ 
 closePopup.onclick = function () {
   popup.style.display = "none";
 }
@@ -279,10 +270,10 @@ function animate() {
   renderer.setClearColor(new THREE.Color(0x87CEEB), 1);
 }
 
-// Start the animation loop
+//  animation loop
 animate();
 
-// Handle window resizing
+ 
 window.addEventListener('resize', () => {
   const width = window.innerWidth;
   const height = window.innerHeight;

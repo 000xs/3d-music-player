@@ -26,13 +26,13 @@ const ButtonMaterial = new THREE.MeshStandardMaterial({
   metalness: 0.5,
 });
 
-// Function to set cover art image
+ 
 function setImage(imgData) {
   if (imgData) {
     const img = new Image();
-    img.src = imgData; // Set the image source to the base64 data
+    img.src = imgData; 
     img.onload = () => {
-      // Assuming you have a texture loader and material setup
+      
       textureLoader.load(img.src, (newTexture) => {
         customMaterial.map = newTexture;
         customMaterial.needsUpdate = true;

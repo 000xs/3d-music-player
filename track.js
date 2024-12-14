@@ -70,7 +70,7 @@ const Play = (scene) => {
       });
     audio.addEventListener("timeupdate", () => {
       const currentTime = audio.currentTime;
-      const duration = audio.duration; // Total duration of the track
+      const duration = audio.duration;  
       const percentage = (currentTime / duration) * 100;
       controlerPosition(scene, percentage); // Update controller position
     });
@@ -95,7 +95,7 @@ const Next = (scene) => {
   }
   audio.addEventListener("timeupdate", () => {
     const currentTime = audio.currentTime;
-    const duration = audio.duration; // Total duration of the track
+    const duration = audio.duration;  
     const percentage = (currentTime / duration) * 100;
     controlerPosition(scene, percentage);  
   });
@@ -116,7 +116,7 @@ const Prev = (scene) => {
   }
   audio.addEventListener("timeupdate", () => {
     const currentTime = audio.currentTime;
-    const duration = audio.duration; // Total duration of the track
+    const duration = audio.duration;  
     const percentage = (currentTime / duration) * 100;
     controlerPosition(scene, percentage); // Update controller position
   });
@@ -136,8 +136,7 @@ function loadMetadata(file) {
                 )}`,
               }
             : null;
-
-          // Resolve with structured metadata
+ 
           resolve({
             title: tags.title || "Unknown Title",
             artist: tags.artist || "Unknown Artist",
@@ -158,7 +157,7 @@ function updateAudioPlayback(positionX) {
     ((positionX - minPosition) / (maxPosition - minPosition)) * audio.duration;
 
   if (!isNaN(normalizedTime)) {
-    audio.currentTime = normalizedTime; // Update audio current time based on position
+    audio.currentTime = normalizedTime;  
   }
 }
 
