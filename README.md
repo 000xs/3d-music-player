@@ -1,24 +1,17 @@
-﻿# A-Frame 3D Music Player
+﻿# Three.js 3D Music Player 🎶
 
-This is an interactive 3D music player built using **A-Frame**, **JavaScript**, and **HTML**.  
+This is an interactive 3D music player built using Vite vanilaJs with Three.js
 
-### Cloning the Repository
+This is 3D model Of Music players
+# 🎹 Button Guide
 
-1. Clone the repository to your local machine:
-    ```bash
-    git clone https://github.com/yourusername/aframe-music-player.git
-    ```
+![alt text](public/in.jpg)
 
-2. Navigate to the project directory:
-    ```bash
-    cd aframe-music-player
-    ```
-### Usage
+ 
+1. Click "Prev button" to go back to the previous track.
 
-1. Make sure your project directory contains the necessary assets:
-    - 3D models (e.g., `play_stop.glb`, `prev.glb`, `next.glb`).
-     
-2. Use Blender and open `untitle.blend` and make Changes and Export `.glb` format.
-2. Open `index.html` in a web browser.
+2. Click "Play/Pause" to play or pause the current track.
 
-### Happy coding! 🎶
+3. Click "Next Song" to skip to the next track.
+
+4. Use the file input to browse and add songs from your

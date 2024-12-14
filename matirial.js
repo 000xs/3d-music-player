@@ -21,10 +21,9 @@ const customMaterial = new THREE.MeshStandardMaterial({
 });
 
 const ButtonMaterial = new THREE.MeshStandardMaterial({
-  map: customTexture,
+  color: 0x000000, // Black color
   roughness: 0.5,
   metalness: 0.5,
-  emissive: 0x000000,
 });
 
 // Function to set cover art image

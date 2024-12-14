@@ -1,3 +1,34 @@
+
+
+
+// // Get the modal
+const popup = document.getElementById("popup");
+
+// // Get the button that opens the modal
+// const openPopup = document.getElementById("openPopup");
+
+// // Get the <span> element that closes the modal
+const closePopup = document.getElementById("closePopup");
+
+// // When the user clicks on the button, open the modal
+
+popup.style.display = "block";
+
+
+// When the user clicks on <span> (x), close the modal
+closePopup.onclick = function () {
+  popup.style.display = "none";
+}
+
+// // When the user clicks anywhere outside of the modal, close it
+// window.onclick = function(event) {
+//     if (event.target === popup) {
+//         popup.style.display = "none";
+//     }
+// }
+
+
+
 import './style.css';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
@@ -5,6 +36,8 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { ButtonMaterial, customMaterial } from './matirial';
 import { createCD } from './createTrackElement';
 import { addTrack, Next, Play, Prev } from './track';
+import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry.js";
+import { FontLoader } from "three/examples/jsm/loaders/FontLoader.js";
 
 const canvas = document.querySelector('#canvas');
 
@@ -34,7 +67,7 @@ loader.load('/models/player.glb', (gltf) => {
 }, undefined, (error) => {
   console.error('Error loading player model:', error);
 });
- 
+
 // Load screen model
 loader.load('/models/screen.glb', (gltf) => {
   gltf.scene.traverse((child) => {
@@ -57,7 +90,7 @@ loader.load('/models/controler.glb', (gltf) => {
   scene.add(gltf.scene);
   gltf.scene.traverse((child) => {
     if (child.isMesh) {
-      child.name= "controler";
+      child.name = "controler";
       child.material = material;
       child.rotateY(Math.PI / 2 * 3);
       child.position.set(0.2, 0.45, 0.65)
@@ -122,18 +155,49 @@ loader.load('/models/playlist.glb', (gltf) => {
 // play  codinates 
 // createCD(scene, material, 0.1, 1.3, 0, "track.name");
 
+const fontLoader = new FontLoader();
+// isntructions 
+function create3DText(x, y, z, r, text, size) {
 
+  //add text
+  fontLoader.load("/fonts/helvetiker_regular.typeface.json", (font) => {
+    const textGeometry = new TextGeometry(text, {
+      font: font,
+      size: size,
+      height: 0.01,
+      curveSegments: 12,
+      bevelEnabled: true,
+      bevelThickness: 0.003,
+      bevelSize: 0.002,
+      bevelSegments: 5,
+    });
+
+    const textMesh = new THREE.Mesh(textGeometry, ButtonMaterial);
+    textMesh.rotateY(Math.PI / 2);
+
+    textMesh.position.set(x, y, z); // Center the text
+    textMesh.rotateY(r);
+    scene.add(textMesh);
+  });
+
+}
+
+
+// create3DText(4,2,6,45,"Welcome to the music player",0.2)
+// create3DText(0,2,-2.5, 0,"Click Add Song to add a song to the playlist.",0.1)
 
 // Set camera position
 camera.position.x = 5;
+camera.position.y = 2;
+camera.position.z = -3;
+camera.scale.set(0.01, 0.01, 0.01);
 
-// Add a light source for better visibility of materials
+
 const light = new THREE.DirectionalLight(0xffffff, 1);
 light.position.set(5, 5, 5).normalize();
 scene.add(light);
 
 
-// Add lights to the scene
 
 const ambientLight = new THREE.AmbientLight(0x404040); // Soft white light
 scene.add(ambientLight);
@@ -151,7 +215,7 @@ scene.add(directionalLight2);
 
 
 
- 
+
 
 // Raycaster and mouse vector
 const raycaster = new THREE.Raycaster();
@@ -178,7 +242,7 @@ function onClick(event) {
     if (objectName == "play") {
       //play fuc
       Play(scene)
-        
+
     }
     if (objectName == "next") {
       //play fuc
@@ -194,8 +258,8 @@ function onClick(event) {
       console.log(data)
     }
     if (objectName == "controler") {
-      
-      
+
+
     }
 
 

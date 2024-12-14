@@ -1,5 +1,5 @@
 import {
-  chanagePositionPlay,
+ 
   controlerPosition,
   createCD,
 } from "./createTrackElement";
@@ -56,7 +56,7 @@ const Play = (scene) => {
       audio.src = URL.createObjectURL(tracks[currentTrackIndex].track[0]);
     }
     audio.play();
-    chanagePositionPlay(currentTrackIndex, scene);
+    // chanagePositionPlay(currentTrackIndex, scene);
     controlerPosition(scene, 60);
 
     // setImage(data.data.coverArt.data);
@@ -97,7 +97,7 @@ const Next = (scene) => {
     const currentTime = audio.currentTime;
     const duration = audio.duration; // Total duration of the track
     const percentage = (currentTime / duration) * 100;
-    controlerPosition(scene, percentage); // Update controller position
+    controlerPosition(scene, percentage);  
   });
 };
 const Prev = (scene) => {
